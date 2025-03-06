@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/PostList.css";
+import "../styles/Posts.css";
 import { clipText } from "../utils";
 
-const PostList = () => {
+const Posts = () => {
   const [posts, setPosts] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -64,4 +64,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default Posts;

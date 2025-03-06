@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import { formatTimestamp } from "../utils";
 import "../styles/Post.css";
 import Comments from "./Comments";
+import NotFound from "./NotFound";
 
 const Post = () => {
   const { postId } = useParams();
@@ -35,6 +36,7 @@ const Post = () => {
     fetchPost();
   }, [postId]);
 
+  if (!parseInt(postId)) return <NotFound />;
   if (error) return <div>{error}</div>;
 
   return (
@@ -52,7 +54,7 @@ const Post = () => {
           </section>
           <hr />
           <section className="container commentSection">
-            <Comments post={post} postId={postId}/>
+            <Comments post={post} postId={postId} />
           </section>
         </>
       ) : (
