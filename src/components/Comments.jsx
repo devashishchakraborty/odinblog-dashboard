@@ -54,8 +54,6 @@ const Comments = ({ post, postId }) => {
           Add Comment
         </summary>
         <form
-          action={`/posts/${postId}/comments`}
-          method="post"
           onSubmit={addComment}
         >
           <input

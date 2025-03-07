@@ -19,3 +19,11 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+main .loginSection,
+main .signUpSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 660px;
+}
