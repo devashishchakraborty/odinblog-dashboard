@@ -8,13 +8,12 @@ const Posts = () => {
   const [error, setError] = useState(null);
   useEffect(() => {
     const fetchPosts = async () => {
-      const TOKEN = import.meta.env.VITE_BEARER_TOKEN;
       try {
         const response = await fetch("http://localhost:3000/posts", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${localStorage.getItem("apiToken")}`,
           },
         });
         if (!response.ok) {
@@ -35,7 +34,7 @@ const Posts = () => {
   return (
     <>
       <section className="container">
-        <h2>Latest Posts</h2>
+        <h2>Your Posts</h2>
 
         {
           // If posts array exists and has length > 0 then display the posts
@@ -43,10 +42,11 @@ const Posts = () => {
             posts.length > 0 && (
               <div className="posts">
                 {posts.map((post) => (
-                  <Link to={`/posts/${post.id}`}>
-                    <article key={post.id}>
+                  <Link to={`/posts/${post.id}`} key={post.id}>
+                    <article >
                       <header>
-                        <b>{post.title}</b>
+                        <div><b>{post.title}</b></div>
+                        <span className="publishedStatus" style={{backgroundColor: post.published ? "green": "#FF9500"}}>&#9679; {post.published ? "Published" : "Unpublished"}</span>
                       </header>
                       <p>{clipText(post.content)}</p>
                     </article>

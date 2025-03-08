@@ -13,7 +13,7 @@ const Comments = ({ post, postId }) => {
   const addComment = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const TOKEN = import.meta.env.VITE_BEARER_TOKEN;
+    const TOKEN = localStorage.getItem("apiToken");
     try {
       const response = await fetch(
         `http://localhost:3000/posts/${postId}/comments`,

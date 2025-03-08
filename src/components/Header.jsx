@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-const Header = ({ user }) => {
+const Header = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <header>
       <div className="container">
@@ -20,15 +21,27 @@ const Header = ({ user }) => {
         </Link>
         <nav>
           <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
             {user ? (
-              <li>
-                <Link to="/posts">Posts</Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/posts">Posts</Link>
+                </li>
+                <details class="dropdown">
+                  <summary>Hi {user.name.split(" ")[0]}!</summary>
+                  <ul>
+                    <li>
+                      <Link href="#">
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </details>
+              </>
             ) : (
               <>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
                 <li>
                   <Link to="/login">Login</Link>
                 </li>

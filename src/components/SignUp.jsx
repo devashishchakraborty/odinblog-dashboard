@@ -32,10 +32,10 @@ const SignUp = () => {
       setConfirmPassword("");
       navigate("/login");
     } catch (err) {
-      console.error("Error fetching data:", err);
+      console.error("Error:", err);
       setEmailError(err.message);
-      // } finally {
-      //   setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

@@ -1,9 +1,64 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ setToken }) => {
-  const fetchToken = async () => {
+const Login = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate();
 
-  }
+  const fetchToken = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLogin),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          response.status === 400
+            ? (await response.json()).err
+            : `HTTP error! Status: ${response.status}`
+        );
+      }
+      const data = await response.json();
+      localStorage.setItem("apiToken", data.token);
+
+      try {
+        const userResponse = await fetch(`http://localhost:3000/user`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("apiToken")}`,
+          },
+        });
+
+        if (!userResponse.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const userData = await userResponse.json();
+        localStorage.setItem("user", JSON.stringify(userData));
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
+
+      setUserLogin({ email: "", password: "" });
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      setLoginError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section className="loginSection container">
       <h1>Sign in</h1>
@@ -14,6 +69,10 @@ const Login = ({ setToken }) => {
           placeholder="Email"
           aria-label="Email"
           autoComplete="email"
+          value={userLogin.email}
+          onChange={(e) =>
+            setUserLogin((prev) => ({ ...prev, email: e.target.value }))
+          }
           required
         />
         <input
@@ -22,21 +81,20 @@ const Login = ({ setToken }) => {
           placeholder="Password"
           aria-label="Password"
           autoComplete="current-password"
+          value={userLogin.password}
+          onChange={(e) =>
+            setUserLogin((prev) => ({ ...prev, password: e.target.value }))
+          }
           required
         />
-        <fieldset>
-          <label htmlFor="remember">
-            <input
-              type="checkbox"
-              role="switch"
-              id="remember"
-              name="remember"
-            />
-            Remember me
-          </label>
-        </fieldset>
-        <button type="submit">Login</button>
-        <small>Don't have an account? <Link to="/sign-up">Sign Up</Link></small>
+        <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+          Login
+        </button>
+        <small>
+          Don't have an account? <Link to="/sign-up">Sign Up</Link>
+          <br />
+          <i style={{ color: "crimson" }}>{loginError}</i>
+        </small>
       </form>
     </section>
   );
