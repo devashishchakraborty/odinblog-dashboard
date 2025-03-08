@@ -28,7 +28,7 @@ function App() {
   }, [user, token]);
   return (
     <>
-      <Header user={user} />
+      <Header user={user} setUser={setUser} setToken={setToken}/>
       <main>
         <Routes>
           <Route path="/" element={redirectLoggedInUser(<Home />)} />

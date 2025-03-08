@@ -1,7 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MainLogo from "../assets/svg/MainLogo";
 
-const Header = ({ user }) => {
+const Header = ({ user, setUser, setToken }) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    navigate("/login");
+  };
   return (
     <header>
       <div className="container">
@@ -20,7 +26,9 @@ const Header = ({ user }) => {
                   <summary>Hi {user.name.split(" ")[0]}!</summary>
                   <ul>
                     <li>
-                      <Link href="#">Logout</Link>
+                      <Link href="#" onClick={handleLogout}>
+                        Logout
+                      </Link>
                     </li>
                   </ul>
                 </details>
