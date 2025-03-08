@@ -6,7 +6,7 @@ const Header = ({ user, setUser, setToken }) => {
   const handleLogout = () => {
     setUser(null);
     setToken(null);
-    navigate("/login");
+    navigate("/");
   };
   return (
     <header>
