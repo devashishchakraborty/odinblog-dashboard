@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import MainLogo from "../assets/svg/MainLogo";
 
-const Header = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+const Header = ({ user }) => {
   return (
     <header>
       <div className="container">

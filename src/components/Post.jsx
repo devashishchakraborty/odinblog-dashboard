@@ -6,20 +6,19 @@ import "../styles/Post.css";
 import Comments from "./Comments";
 import NotFound from "./NotFound";
 
-const Post = () => {
+const Post = ({ token }) => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
-      const TOKEN = localStorage.getItem("apiToken");
       try {
         const response = await fetch(`http://localhost:3000/posts/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
@@ -34,7 +33,7 @@ const Post = () => {
     };
 
     fetchPost();
-  }, [postId]);
+  }, [token, postId]);
 
   if (!parseInt(postId)) return <NotFound />;
   if (error) return <div>{error}</div>;

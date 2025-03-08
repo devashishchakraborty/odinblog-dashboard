@@ -7,7 +7,7 @@ import MdiDelete from "../assets/svg/MdiDelete";
 import MdiEdit from "../assets/svg/MdiEdit";
 import MdiPublishOff from "../assets/svg/MdiPublishOff";
 
-const Posts = () => {
+const Posts = ({ token }) => {
   const [posts, setPosts] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -17,7 +17,7 @@ const Posts = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("apiToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
@@ -32,7 +32,7 @@ const Posts = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [token]);
 
   // Toggle published cell of the post
   const togglePublish = async (post) => {
@@ -41,7 +41,7 @@ const Posts = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("apiToken")}`,
+          Authorization: `Bearer ${token}`,
         },
         body: `{ "published": ${!post.published} }`,
       });
@@ -55,6 +55,26 @@ const Posts = () => {
           return prev;
         })
       );
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError(err.message);
+    }
+  };
+
+  const deletePost = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const post = await response.json();
+      setPosts((prevPosts) => prevPosts.filter((prev) => prev.id != post.id));
     } catch (err) {
       console.error("Error fetching data:", err);
       setError(err.message);
@@ -120,7 +140,11 @@ const Posts = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" style={{ color: "crimson" }}>
+                          <Link
+                            to="#"
+                            style={{ color: "crimson" }}
+                            onClick={() => deletePost(post.id)}
+                          >
                             <MdiDelete />
                             Delete
                           </Link>

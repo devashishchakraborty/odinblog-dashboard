@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setUser, setToken }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userLogin, setUserLogin] = useState({
     email: "",
@@ -30,14 +30,13 @@ const Login = () => {
         );
       }
       const data = await response.json();
-      localStorage.setItem("apiToken", data.token);
 
       try {
         const userResponse = await fetch(`http://localhost:3000/user`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("apiToken")}`,
+            Authorization: `Bearer ${data.token}`,
           },
         });
 
@@ -45,13 +44,13 @@ const Login = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const userData = await userResponse.json();
-        localStorage.setItem("user", JSON.stringify(userData));
+        setToken(data.token);
+        setUser(userData);
+        setUserLogin({ email: "", password: "" });
+        navigate("/posts");
       } catch (err) {
         console.error("Error fetching user:", err);
       }
-
-      setUserLogin({ email: "", password: "" });
-      navigate("/");
     } catch (err) {
       console.error(err);
       setLoginError(err.message);

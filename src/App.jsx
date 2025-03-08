@@ -9,32 +9,44 @@ import SignUp from "./components/SignUp";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user"))); 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const protectRoute = (component) => {
+    return user ? component : <Navigate to="/login" />;
+  };
+  const redirectLoggedInUser = (component) => {
+    return user ? <Navigate to="/posts" /> : component;
+  };
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+  }, [user, token]);
   return (
     <>
-      <Header user={user} setUser={setUser}/>
+      <Header user={user} />
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={user ? <Navigate to="/posts" /> : <Home />}
-          />
+          <Route path="/" element={redirectLoggedInUser(<Home />)} />
           <Route
             path="/login"
-            element={user ? <Navigate to="/posts" /> : <Login />}
+            element={redirectLoggedInUser(
+              <Login setUser={setUser} setToken={setToken} />
+            )}
           />
-          <Route
-            path="/sign-up"
-            element={user ? <Navigate to="/posts" /> : <SignUp />}
-          />
+          <Route path="/sign-up" element={redirectLoggedInUser(<SignUp />)} />
           <Route path="/posts">
-            <Route index element={<Posts />} />
-            <Route path="new" element={<CreatePost />} />
-            <Route path=":postId" element={<Post />} />
-            <Route path=":postId/edit" element={<EditPost />} />
+            <Route index element={protectRoute(<Posts token={token} />)} />
+            <Route path="new" element={protectRoute(<CreatePost />)} />
+            <Route
+              path=":postId"
+              element={protectRoute(<Post token={token} />)}
+            />
+            <Route path=":postId/edit" element={protectRoute(<EditPost />)} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
