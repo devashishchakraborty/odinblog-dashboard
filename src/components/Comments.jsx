@@ -1,6 +1,7 @@
 import { useState } from "react";
+import MdiDelete from "../assets/svg/MdiDelete";
 
-const Comments = ({ post, postId }) => {
+const Comments = ({ post, postId, token }) => {
   const [comments, setComments] = useState(post.comments.toReversed());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newComment, setNewComment] = useState({
@@ -13,7 +14,6 @@ const Comments = ({ post, postId }) => {
   const addComment = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const TOKEN = localStorage.getItem("token");
     try {
       const response = await fetch(
         `http://localhost:3000/posts/${postId}/comments`,
@@ -21,7 +21,7 @@ const Comments = ({ post, postId }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newComment),
         }
@@ -42,6 +42,36 @@ const Comments = ({ post, postId }) => {
     }
   };
 
+  const deleteComment = async (commentId) => {
+    setIsSubmitting(true);
+    const TOKEN = localStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `http://localhost:3000/posts/${postId}/comments/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setComments((prev) => prev.filter((comment) => comment.id != data.id));
+      setNewComment({ name: "", email: "", text: "" });
+    } catch (err) {
+      console.error("Error deleting comment:", err);
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (error) return <div>{error}</div>;
 
   return (
@@ -53,9 +83,7 @@ const Comments = ({ post, postId }) => {
         <summary role="button" className="secondary outline">
           Add Comment
         </summary>
-        <form
-          onSubmit={addComment}
-        >
+        <form onSubmit={addComment}>
           <input
             type="text"
             className="fullname"
@@ -107,8 +135,17 @@ const Comments = ({ post, postId }) => {
               <div className="commentMeta">
                 <span className="authorName">
                   <b>{comment.author_name}</b>
-                </span>&#10072;
+                </span>
+                &#10072;
                 <span className="authorEmail">{comment.author_email}</span>
+                <button
+                  onClick={() => deleteComment(comment.id)}
+                  className="deleteBtn outline"
+                  aria-busy={isSubmitting}
+                  disabled={isSubmitting}
+                >
+                  <MdiDelete />
+                </button>
               </div>
               <p className="commentText">{comment.text}</p>
               <hr />

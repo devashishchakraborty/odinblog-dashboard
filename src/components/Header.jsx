@@ -20,7 +20,10 @@ const Header = ({ user, setUser, setToken }) => {
             {user ? (
               <>
                 <li>
-                  <Link to="/posts">Posts</Link>
+                  <Link to="/posts/new">Create New</Link>
+                </li>
+                <li>
+                  <Link to="/posts">Your Posts</Link>
                 </li>
                 <details className="dropdown">
                   <summary>Hi {user.name.split(" ")[0]}!</summary>

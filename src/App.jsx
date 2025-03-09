@@ -44,7 +44,7 @@ function App() {
             <Route path="new" element={protectRoute(<CreatePost />)} />
             <Route
               path=":postId"
-              element={protectRoute(<Post token={token} />)}
+              element={protectRoute(<Post token={token} user={user} />)}
             />
             <Route path=":postId/edit" element={protectRoute(<EditPost />)} />
           </Route>
