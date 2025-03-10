@@ -1,5 +1,5 @@
-.mdxEditor div[role="group"] {
-  margin-bottom: 0;
+.mdxeditor-popup-container{
+  border: 0px;
 }
 
 /* Header */

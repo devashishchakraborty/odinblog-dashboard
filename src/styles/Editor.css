@@ -1,2 +1,8 @@
-.mdxeditor-popup-container{
+.mdxEditor {
+  border: 2px solid var(--pico-muted-border-color);
+
+}
+
+.mdxeditor-toolbar{
+  border-radius: 0px !important;
 }

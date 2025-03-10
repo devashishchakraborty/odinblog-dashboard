@@ -14,17 +14,30 @@ import {
   linkDialogPlugin,
   linkPlugin,
   CreateLink,
+  tablePlugin,
+  InsertTable,
+  imagePlugin,
+  InsertImage,
+  InsertThematicBreak,
+  KitchenSinkToolbar
 } from "@mdxeditor/editor";
+import "../styles/Editor.css";
 
 function Editor() {
   return (
     <div className="editorWrapper">
+      <form action="#" className="pico">
+        <input type="text" name="title" id="title" placeholder="Title" />
+      </form>
       <MDXEditor
         className="mdxEditor"
-        markdown="Hello world"
+        markdown=""
+        placeholder="Write your article here..."
         plugins={[
           linkPlugin(),
+          imagePlugin(),
           linkDialogPlugin(),
+          tablePlugin(),
           thematicBreakPlugin(),
           listsPlugin(),
           quotePlugin(),
@@ -41,7 +54,12 @@ function Editor() {
                 <ListsToggle />
                 <Separator />
                 <BlockTypeSelect />
+                <Separator />
                 <CreateLink />
+                <InsertImage />
+                <Separator />
+                <InsertTable />
+                <InsertThematicBreak />
               </>
             ),
           }),
