@@ -1,5 +1,9 @@
+.mdxEditor div[role="group"] {
+  margin-bottom: 0;
+}
+
 /* Header */
-#root > header {
+header {
   padding: 0.5em 0;
   border-bottom: 2px solid var(--pico-muted-border-color);
   .container {

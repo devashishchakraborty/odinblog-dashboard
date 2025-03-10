@@ -40,7 +40,7 @@ const SignUp = () => {
   };
 
   return (
-    <section className="signUpSection container">
+    <section className="pico signUpSection container">
       <h1>Create Account</h1>
       <form onSubmit={createNewUser}>
         <input

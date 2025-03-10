@@ -8,8 +8,10 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import CreatePost from "./components/CreatePost";
 import EditPost from "./components/EditPost";
-import "./App.css";
 import { useEffect, useState } from "react";
+import "@picocss/pico/css/pico.conditional.min.css";
+import "@mdxeditor/editor/style.css";
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -28,7 +30,7 @@ function App() {
   }, [user, token]);
   return (
     <>
-      <Header user={user} setUser={setUser} setToken={setToken}/>
+      <Header user={user} setUser={setUser} setToken={setToken} />
       <main>
         <Routes>
           <Route path="/" element={redirectLoggedInUser(<Home />)} />

@@ -36,13 +36,13 @@ const Post = ({ token, user }) => {
   }, [token, postId]);
 
   if (!parseInt(postId)) return <NotFound />;
-  if (error) return <div>{error}</div>;
+  if (error) return <div className="pico">{error}</div>;
 
   return (
-    <>
+    <div className="pico container">
       {post ? (
         <>
-          <section className="container">
+          <section className="postContainer">
             <h2>{post.title}</h2>
             <div className="postMeta">
               <span>{user.name}</span> &#8226;{" "}
@@ -52,14 +52,14 @@ const Post = ({ token, user }) => {
             <Markdown>{post.content}</Markdown>
           </section>
           <hr />
-          <section className="container commentSection">
+          <section className="commentSection">
             <Comments post={post} postId={postId} token={token}/>
           </section>
         </>
       ) : (
         <div aria-busy="true"></div>
       )}
-    </>
+    </div>
   );
 };
 

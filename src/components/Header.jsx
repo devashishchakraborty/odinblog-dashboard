@@ -10,7 +10,7 @@ const Header = ({ user, setUser, setToken }) => {
   };
   return (
     <header>
-      <div className="container">
+      <div className="pico container">
         <Link to="/" className="mainLogo">
           <MainLogo />
           OdinBlog

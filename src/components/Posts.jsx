@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Posts.css";
 import { clipText } from "../utils";
 import MdiPublish from "../assets/svg/MdiPublish";
 import MdiDelete from "../assets/svg/MdiDelete";
 import MdiEdit from "../assets/svg/MdiEdit";
 import MdiPublishOff from "../assets/svg/MdiPublishOff";
+import "../styles/Posts.css";
+
 
 const Posts = ({ token }) => {
   const [posts, setPosts] = useState(null);
@@ -81,10 +82,10 @@ const Posts = ({ token }) => {
     }
   };
 
-  if (error) return <section className="container">{error}</section>;
+  if (error) return <section className="pico container">{error}</section>;
   return (
     <>
-      <section className="container">
+      <section className="pico container">
         <h2>Your Posts</h2>
 
         {

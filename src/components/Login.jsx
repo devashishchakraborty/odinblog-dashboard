@@ -59,7 +59,7 @@ const Login = ({ setUser, setToken }) => {
     }
   };
   return (
-    <section className="loginSection container">
+    <section className="pico loginSection container">
       <h1>Sign in</h1>
       <form onSubmit={fetchToken}>
         <input
