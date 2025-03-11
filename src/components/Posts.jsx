@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { clipText } from "../utils";
+import Markdown from "react-markdown";
 import MdiPublish from "../assets/svg/MdiPublish";
 import MdiDelete from "../assets/svg/MdiDelete";
 import MdiEdit from "../assets/svg/MdiEdit";
 import MdiPublishOff from "../assets/svg/MdiPublishOff";
 import "../styles/Posts.css";
-
 
 const Posts = ({ token }) => {
   const [posts, setPosts] = useState(null);
@@ -113,7 +113,9 @@ const Posts = ({ token }) => {
                             {post.published ? "Published" : "Unpublished"}
                           </span>
                         </header>
-                        <p>{clipText(post.content)}</p>
+                        <p>
+                          <Markdown>{clipText(post.content)}</Markdown>
+                        </p>
                       </article>
                     </Link>
                     <details className="dropdown postActions">

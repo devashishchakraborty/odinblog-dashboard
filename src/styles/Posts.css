@@ -1,3 +1,10 @@
+.posts{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+
 .posts .publishedStatus {
   font-size: 0.7em;
   color: white !important;
@@ -7,6 +14,7 @@
 
 .posts a {
   text-decoration: none !important;
+  height: 100%;
   article * {
     color: black !important;
   }
@@ -22,4 +30,8 @@ details.postActions {
     align-items: center;
     gap: 8px;
   }
+}
+
+.post p *{
+  font-size: 1rem;
 }

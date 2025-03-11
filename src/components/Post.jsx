@@ -43,7 +43,7 @@ const Post = ({ token, user }) => {
       {post ? (
         <>
           <section className="postContainer">
-            <h2>{post.title}</h2>
+            <h1>{post.title}</h1>
             <div className="postMeta">
               <span>{user.name}</span> &#8226;{" "}
               <span>{formatTimestamp(post.created_at)}</span>

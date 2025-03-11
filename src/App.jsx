@@ -43,7 +43,7 @@ function App() {
           <Route path="/sign-up" element={redirectLoggedInUser(<SignUp />)} />
           <Route path="/posts">
             <Route index element={protectRoute(<Posts token={token} />)} />
-            <Route path="new" element={protectRoute(<CreatePost />)} />
+            <Route path="new" element={protectRoute(<CreatePost token={token} />)} />
             <Route
               path=":postId"
               element={protectRoute(<Post token={token} user={user} />)}
