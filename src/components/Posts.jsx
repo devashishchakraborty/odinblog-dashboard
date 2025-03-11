@@ -86,8 +86,7 @@ const Posts = ({ token }) => {
   return (
     <>
       <section className="pico container">
-        <h2>Your Posts</h2>
-
+        <h1>Your Posts</h1>
         {
           // If posts array exists and has length > 0 then display the posts
           posts ? (

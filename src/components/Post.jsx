@@ -39,10 +39,10 @@ const Post = ({ token, user }) => {
   if (error) return <div className="pico">{error}</div>;
 
   return (
-    <div className="pico container">
+    <div className="pico">
       {post ? (
         <>
-          <section className="postContainer">
+          <section className="postContainer  container">
             <h1>{post.title}</h1>
             <div className="postMeta">
               <span>{user.name}</span> &#8226;{" "}
@@ -52,7 +52,7 @@ const Post = ({ token, user }) => {
             <Markdown>{post.content}</Markdown>
           </section>
           <hr />
-          <section className="commentSection">
+          <section className="commentSection  container">
             <Comments post={post} postId={postId} token={token}/>
           </section>
         </>

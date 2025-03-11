@@ -3,6 +3,7 @@ import MdiPublish from "../assets/svg/MdiPublish";
 import "../styles/Editor.css";
 import { useRef, useState } from "react";
 import EditorContent from "./EditorContent"; // Import the memoized component
+import { useNavigate } from "react-router-dom";
 
 function Editor({
   token,
@@ -16,6 +17,8 @@ function Editor({
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState(null);
   const [postId, setPostId] = useState(editPostId);
+  const navigate = useNavigate();
+
   const storePost = async (title, content, published, setIsSubmitting) => {
     if (title.length > 0 || content.length > 0) {
       setIsSubmitting(true);
@@ -53,14 +56,15 @@ function Editor({
         <section className="meta">
           <b>Write your Post</b>
           <button
-            onClick={() =>
+            onClick={() => {
               storePost(
                 title,
                 ref.current?.getMarkdown(),
                 true,
                 setIsPublishing
-              )
-            }
+              );
+              navigate("/posts");
+            }}
             aria-busy={isPublishing}
             disabled={isPublishing}
           >
