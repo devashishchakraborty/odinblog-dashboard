@@ -45,14 +45,18 @@ const Post = ({ token }) => {
       {post ? (
         <>
           <section className="postContainer container">
-            
             <h1>{post.title}</h1>
             <div className="postMeta">
               <span>{post.author.name}</span> &#8226;{" "}
               <span>{formatTimestamp(post.created_at)}</span>
             </div>
             <hr />
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>{post.content}</Markdown>
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeSanitize]}
+            >
+              {post.content}
+            </Markdown>
           </section>
           <hr />
           <section className="commentSection  container">
