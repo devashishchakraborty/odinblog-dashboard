@@ -3,6 +3,7 @@ import MainLogo from "../assets/svg/MainLogo";
 import MdiAdd from "../assets/svg/MdiAdd";
 import MdiLogout from "../assets/svg/MdiLogout";
 import GridiconsPosts from "../assets/svg/GridiconsPosts";
+import MdiAccount from "../assets/svg/MdiAccount";
 
 const Header = ({ user, setUser, setToken }) => {
   const navigate = useNavigate();
@@ -28,6 +29,11 @@ const Header = ({ user, setUser, setToken }) => {
               <details className="dropdown">
                 <summary>Hi {user.name.split(" ")[0]}!</summary>
                 <ul>
+                  <li>
+                    <Link to="/profile">
+                      <MdiAccount /> Profile
+                    </Link>
+                  </li>
                   <li>
                     <Link to="/posts/new">
                       <MdiAdd /> Create New

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import "@picocss/pico/css/pico.conditional.min.css";
 import "@mdxeditor/editor/style.css";
 import "./App.css";
+import Profile from "./components/Profile";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -41,6 +42,7 @@ function App() {
             )}
           />
           <Route path="/sign-up" element={redirectLoggedInUser(<SignUp />)} />
+
           <Route path="/posts">
             <Route index element={protectRoute(<Posts token={token} />)} />
             <Route
@@ -56,6 +58,10 @@ function App() {
               element={protectRoute(<EditPost token={token} />)}
             />
           </Route>
+          <Route
+            path="/profile"
+            element={protectRoute(<Profile user={user} token={token} />)}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
