@@ -25,37 +25,39 @@ const Header = ({ user, setUser, setToken }) => {
         </ul>
         <ul>
           {user ? (
-            <li>
-              <details className="dropdown">
-                <summary>Hi {user.name.split(" ")[0]}!</summary>
-                <ul>
-                  <li>
-                    <Link to="/profile">
-                      <MdiAccount /> Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/posts/new">
-                      <MdiAdd /> Create New
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/posts">
-                      <GridiconsPosts /> Your Posts
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      style={{ color: "crimson" }}
-                      onClick={handleLogout}
-                    >
-                      <MdiLogout /> Logout
-                    </Link>
-                  </li>
-                </ul>
-              </details>
-            </li>
+            <>
+              <li>
+                <details className="dropdown">
+                  <summary>Hi {user.name.split(" ")[0]}!</summary>
+                  <ul>
+                    <li>
+                      <Link to="/profile">
+                        <MdiAccount /> Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/posts/new">
+                        <MdiAdd /> Create New
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/posts">
+                        <GridiconsPosts /> Your Posts
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="#"
+                        style={{ color: "crimson" }}
+                        onClick={handleLogout}
+                      >
+                        <MdiLogout /> Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            </>
           ) : (
             <>
               <li>

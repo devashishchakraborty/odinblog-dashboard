@@ -8,7 +8,7 @@ import "../styles/Post.css";
 import Comments from "./Comments";
 import NotFound from "./NotFound";
 
-const Post = ({ token, user }) => {
+const Post = ({ token }) => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
@@ -45,9 +45,10 @@ const Post = ({ token, user }) => {
       {post ? (
         <>
           <section className="postContainer container">
+            
             <h1>{post.title}</h1>
             <div className="postMeta">
-              <span>{user.name}</span> &#8226;{" "}
+              <span>{post.author.name}</span> &#8226;{" "}
               <span>{formatTimestamp(post.created_at)}</span>
             </div>
             <hr />

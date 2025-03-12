@@ -1,6 +1,19 @@
+import { useEffect, useState } from "react";
+import "../styles/Profile.css";
+
 const Profile = ({ user, token }) => {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (copied) {
+      const timeoutId = setTimeout(() => {
+        setCopied(false);
+      }, 5000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [copied]);
   return (
-    <section className="pico container">
+    <section className="pico container profile">
       <div>
         <b>Name</b>: {user.name}
       </div>
@@ -8,14 +21,15 @@ const Profile = ({ user, token }) => {
         <b>Email</b>: {user.email}
       </div>
       <div>
-        <b>API Key</b>:{" "}
         <button
           onClick={() => {
             navigator.clipboard.writeText(token);
+            setCopied(true);
           }}
         >
           Copy API Key
-        </button>
+        </button>&nbsp;&nbsp;&nbsp;
+        {copied && <small style={{color: "green"}}>Copied!</small>}
       </div>
     </section>
   );

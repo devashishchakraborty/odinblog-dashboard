@@ -10,7 +10,7 @@ import "../styles/Posts.css";
 import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
 
-const Posts = ({ token }) => {
+const Posts = ({ token, user }) => {
   const [posts, setPosts] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -54,8 +54,7 @@ const Posts = ({ token }) => {
       const data = await response.json();
       setPosts((prevPosts) =>
         prevPosts.map((prev) => {
-          if (prev.id === post.id) return data;
-          return prev;
+          return prev.id === post.id ? data : prev;
         })
       );
     } catch (err) {
@@ -88,11 +87,11 @@ const Posts = ({ token }) => {
   return (
     <>
       <section className="pico container">
-        <h1>Your Posts</h1>
+        <h1>Posts</h1>
         {
           // If posts array exists and has length > 0 then display the posts
           posts ? (
-            posts.length > 0 && (
+            posts.length > 0 ? (
               <div className="posts">
                 {posts.map((post) => (
                   <div className="post" key={post.id}>
@@ -114,40 +113,43 @@ const Posts = ({ token }) => {
                             {post.published ? "Published" : "Unpublished"}
                           </span>
                         </header>
-                        <p>
-                          <Markdown
-                            remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeSanitize]}
-                          >
-                            {clipText(post.content)}
-                          </Markdown>
-                        </p>
+                        <Markdown
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeSanitize]}
+                        >
+                          {clipText(post.content)}
+                        </Markdown>
                       </article>
                     </Link>
                     <details className="dropdown postActions">
                       <summary>Update</summary>
                       <ul>
-                        <li>
-                          <Link to={`/posts/${post.id}/edit`}>
-                            <MdiEdit />
-                            Edit
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#" onClick={() => togglePublish(post)}>
-                            {post.published ? (
-                              <>
-                                <MdiPublishOff />
-                                Unpublish
-                              </>
-                            ) : (
-                              <>
-                                <MdiPublish />
-                                Publish
-                              </>
-                            )}
-                          </Link>
-                        </li>
+                        {post.author_id === user.id && (
+                          <>
+                            <li>
+                              <Link to={`/posts/${post.id}/edit`}>
+                                <MdiEdit />
+                                Edit
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="#" onClick={() => togglePublish(post)}>
+                                {post.published ? (
+                                  <>
+                                    <MdiPublishOff />
+                                    Unpublish
+                                  </>
+                                ) : (
+                                  <>
+                                    <MdiPublish />
+                                    Publish
+                                  </>
+                                )}
+                              </Link>
+                            </li>
+                          </>
+                        )}
+
                         <li>
                           <Link
                             to="#"
@@ -162,6 +164,11 @@ const Posts = ({ token }) => {
                     </details>
                   </div>
                 ))}
+              </div>
+            ) : (
+              <div>
+                It's empty in here. Create a{" "}
+                <Link to="/posts/new">new post</Link>!
               </div>
             )
           ) : (

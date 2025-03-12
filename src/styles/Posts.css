@@ -1,11 +1,7 @@
 .posts {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 24px;
-}
-
-.posts > * {
-  flex: 1 1 400px;
 }
 
 .post {
