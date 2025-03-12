@@ -1,5 +1,7 @@
 const clipText = (text) => {
-  return text.length <= 100 ? text : text.slice(0, 200) + "...";
+  if (text.length <= 170) return text;
+  const breakIndex = text.slice(170).search(/\n/);
+  return text.slice(0, 170 + breakIndex) + "... **Read More**";
 };
 
 const formatTimestamp = (timestamp) => {

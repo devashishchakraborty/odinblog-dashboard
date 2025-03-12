@@ -55,32 +55,31 @@ function Editor({
       <section className="pico">
         <section className="meta">
           <b>Write your Post</b>
-          <button
-            onClick={() => {
-              storePost(
-                title,
-                ref.current?.getMarkdown(),
-                true,
-                setIsPublishing
-              );
-              navigate("/posts");
-            }}
-            aria-busy={isPublishing}
-            disabled={isPublishing}
-          >
-            <MdiPublish /> Publish
-          </button>
-
-          <button
-            className="secondary outline"
-            onClick={() =>
-              storePost(title, ref.current?.getMarkdown(), false, setIsSaving)
-            }
-            aria-busy={isSaving}
-            disabled={isSaving}
-          >
-            <MdiContentSave /> Save
-          </button>
+            <button
+              onClick={() => {
+                storePost(
+                  title,
+                  ref.current?.getMarkdown(),
+                  true,
+                  setIsPublishing
+                );
+                navigate("/posts");
+              }}
+              aria-busy={isPublishing}
+              disabled={isPublishing}
+            >
+              <MdiPublish /> Publish
+            </button>
+            <button
+              className="secondary outline"
+              onClick={() =>
+                storePost(title, ref.current?.getMarkdown(), false, setIsSaving)
+              }
+              aria-busy={isSaving}
+              disabled={isSaving}
+            >
+              <MdiContentSave /> Save
+            </button>
         </section>
         <form action="#">
           <input

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
 import { formatTimestamp } from "../utils";
 import "../styles/Post.css";
 import Comments from "./Comments";
@@ -42,18 +44,18 @@ const Post = ({ token, user }) => {
     <div className="pico">
       {post ? (
         <>
-          <section className="postContainer  container">
+          <section className="postContainer container">
             <h1>{post.title}</h1>
             <div className="postMeta">
               <span>{user.name}</span> &#8226;{" "}
               <span>{formatTimestamp(post.created_at)}</span>
             </div>
             <hr />
-            <Markdown>{post.content}</Markdown>
+            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>{post.content}</Markdown>
           </section>
           <hr />
           <section className="commentSection  container">
-            <Comments post={post} postId={postId} token={token}/>
+            <Comments post={post} postId={postId} token={token} />
           </section>
         </>
       ) : (

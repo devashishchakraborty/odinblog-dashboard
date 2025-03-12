@@ -1,7 +1,18 @@
 .posts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.posts > * {
+  flex: 1 1 400px;
+}
+
+.post {
+  position: relative;
+  header {
+    padding-right: 170px !important;
+  }
 }
 
 .posts .publishedStatus {

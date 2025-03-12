@@ -10,8 +10,10 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   b {
-    margin-right: auto;
     font-size: 2em;
+    flex: 1;
   }
 }

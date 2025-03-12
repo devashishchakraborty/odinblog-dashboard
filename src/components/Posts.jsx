@@ -7,6 +7,8 @@ import MdiDelete from "../assets/svg/MdiDelete";
 import MdiEdit from "../assets/svg/MdiEdit";
 import MdiPublishOff from "../assets/svg/MdiPublishOff";
 import "../styles/Posts.css";
+import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
 
 const Posts = ({ token }) => {
   const [posts, setPosts] = useState(null);
@@ -113,7 +115,12 @@ const Posts = ({ token }) => {
                           </span>
                         </header>
                         <p>
-                          <Markdown>{clipText(post.content)}</Markdown>
+                          <Markdown
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeSanitize]}
+                          >
+                            {clipText(post.content)}
+                          </Markdown>
                         </p>
                       </article>
                     </Link>

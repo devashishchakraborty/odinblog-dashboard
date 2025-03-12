@@ -1,5 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import MainLogo from "../assets/svg/MainLogo";
+import MdiAdd from "../assets/svg/MdiAdd";
+import MdiLogout from "../assets/svg/MdiLogout";
+import GridiconsPosts from "../assets/svg/GridiconsPosts";
 
 const Header = ({ user, setUser, setToken }) => {
   const navigate = useNavigate();
@@ -9,49 +12,59 @@ const Header = ({ user, setUser, setToken }) => {
     navigate("/");
   };
   return (
-    <header>
-      <div className="pico container">
-        <Link to="/" className="mainLogo">
-          <MainLogo />
-          OdinBlog
-        </Link>
-        <nav>
-          <ul>
-            {user ? (
-              <>
-                <li>
-                  <Link to="/posts/new">Create New</Link>
-                </li>
-                <li>
-                  <Link to="/posts">Your Posts</Link>
-                </li>
-                <details className="dropdown">
-                  <summary>Hi {user.name.split(" ")[0]}!</summary>
-                  <ul>
-                    <li>
-                      <Link href="#" onClick={handleLogout}>
-                        Logout
-                      </Link>
-                    </li>
-                  </ul>
-                </details>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/sign-up">Sign Up</Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </nav>
-      </div>
+    <header className="pico container">
+      <nav>
+        <ul>
+          <li>
+            <Link to="/" className="mainLogo">
+              <MainLogo />
+              OdinBlog
+            </Link>
+          </li>
+        </ul>
+        <ul>
+          {user ? (
+            <li>
+              <details className="dropdown">
+                <summary>Hi {user.name.split(" ")[0]}!</summary>
+                <ul>
+                  <li>
+                    <Link to="/posts/new">
+                      <MdiAdd /> Create New
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/posts">
+                      <GridiconsPosts /> Your Posts
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="#"
+                      style={{ color: "crimson" }}
+                      onClick={handleLogout}
+                    >
+                      <MdiLogout /> Logout
+                    </Link>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/sign-up">Sign Up</Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
     </header>
   );
 };
