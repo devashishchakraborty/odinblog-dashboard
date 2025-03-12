@@ -28,8 +28,8 @@ const Profile = ({ user, token }) => {
           }}
         >
           Copy API Key
-        </button>&nbsp;&nbsp;&nbsp;
-        {copied && <small style={{color: "green"}}>Copied!</small>}
+        </button>
+        {copied && <small style={{color: "green", marginLeft: "16px"}}>Copied!</small>}
       </div>
     </section>
   );

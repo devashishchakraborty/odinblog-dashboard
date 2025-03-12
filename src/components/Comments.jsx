@@ -47,7 +47,7 @@ const Comments = ({ post, postId, token }) => {
     const TOKEN = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments/${commentId}`,
+        `http://localhost:3000/posts/comments/${commentId}`,
         {
           method: "DELETE",
           headers: {
@@ -121,9 +121,8 @@ const Comments = ({ post, postId, token }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            aria-busy={isSubmitting}
           >
-            {!isSubmitting && "Submit"}
+            Submit
           </button>
         </form>
       </details>
@@ -144,7 +143,7 @@ const Comments = ({ post, postId, token }) => {
                   aria-busy={isSubmitting}
                   disabled={isSubmitting}
                 >
-                  <MdiDelete />
+                  {isSubmitting || <MdiDelete />}
                 </button>
               </div>
               <p className="commentText">{comment.text}</p>

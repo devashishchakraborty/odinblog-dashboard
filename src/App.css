@@ -1,4 +1,4 @@
-.mdxeditor-popup-container{
+.mdxeditor-popup-container {
   border: 0px;
 }
 
@@ -9,7 +9,7 @@ header {
     display: flex !important;
     flex-wrap: wrap;
   }
-  li{
+  li {
     width: max-content;
   }
 }
@@ -23,10 +23,13 @@ header {
   font-weight: bold;
 }
 
-main .loginSection,
-main .signUpSection {
+main .loginSection ,
+main .signUpSection  {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 660px;
+  align-items: center;
+  > * {
+    max-width: 610px;
+
+  }
 }
