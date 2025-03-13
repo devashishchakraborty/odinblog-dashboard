@@ -1,7 +1,9 @@
 
 # OdinBlog Dashboard 
 - This repository contains the dashboard for the Blog project, enabling users to manage posts and moderate comments.
+- Live Link -> [Here](https://odinblog-dashboard.pages.dev/)
 - Blog API created previously [here](https://github.com/devashishchakraborty/blog-api).
+- [Follow this](https://github.com/devashishchakraborty/odinblog-frontend) to show your Blog to world.
 
 ## Features
 
