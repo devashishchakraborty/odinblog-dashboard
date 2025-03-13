@@ -16,7 +16,7 @@ const Posts = ({ token, user }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/posts", {
+        const response = await fetch("http://blog-api-qyys.onrender.com/posts", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const Posts = ({ token, user }) => {
   // Toggle published cell of the post
   const togglePublish = async (post) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/${post.id}`, {
+      const response = await fetch(`http://blog-api-qyys.onrender.com/posts/${post.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const Posts = ({ token, user }) => {
 
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      const response = await fetch(`http://blog-api-qyys.onrender.com/posts/${postId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

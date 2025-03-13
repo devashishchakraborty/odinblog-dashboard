@@ -16,7 +16,7 @@ const SignUp = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:3000/sign-up", {
+      const response = await fetch("http://blog-api-qyys.onrender.com/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

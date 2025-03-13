@@ -16,7 +16,7 @@ const Post = ({ token }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+        const response = await fetch(`http://blog-api-qyys.onrender.com/posts/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -16,7 +16,7 @@ const Comments = ({ post, postId, token }) => {
     setIsSubmitting(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments`,
+        `http://blog-api-qyys.onrender.com/posts/${postId}/comments`,
         {
           method: "POST",
           headers: {
@@ -47,7 +47,7 @@ const Comments = ({ post, postId, token }) => {
     const TOKEN = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/comments/${commentId}`,
+        `http://blog-api-qyys.onrender.com/posts/comments/${commentId}`,
         {
           method: "DELETE",
           headers: {
