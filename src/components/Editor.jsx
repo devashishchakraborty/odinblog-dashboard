@@ -24,7 +24,7 @@ function Editor({
       setIsSubmitting(true);
       try {
         const response = await fetch(
-          `http://blog-api-qyys.onrender.com/posts/${postId || ""}`,
+          `https://blog-api-qyys.onrender.com/posts/${postId || ""}`,
           {
             method: postId ? "PUT" : "POST",
             headers: {

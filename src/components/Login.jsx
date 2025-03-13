@@ -14,7 +14,7 @@ const Login = ({ setUser, setToken }) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://blog-api-qyys.onrender.com/login", {
+      const response = await fetch("https://blog-api-qyys.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Login = ({ setUser, setToken }) => {
       const data = await response.json();
 
       try {
-        const userResponse = await fetch(`http://blog-api-qyys.onrender.com/user`, {
+        const userResponse = await fetch(`https://blog-api-qyys.onrender.com/user`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

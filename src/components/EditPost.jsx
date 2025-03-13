@@ -10,7 +10,7 @@ const EditPost = ({ token }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://blog-api-qyys.onrender.com/posts/${postId}`, {
+        const response = await fetch(`https://blog-api-qyys.onrender.com/posts/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
